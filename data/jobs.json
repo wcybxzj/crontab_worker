@@ -1,0 +1,20 @@
+{
+  "IsDebug": true,
+  "LogURI":"http://beat:15180/log",
+  "LogService":"crontab_worker",
+  "LogHost":"nqy2c1",
+  "jobs": [
+    {
+      "job_id":"100",
+      "name": "name100",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 100.txt"
+    },
+    {
+      "job_id":"200",
+      "name": "name200",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 200.txt"
+    }
+  ]
+}
