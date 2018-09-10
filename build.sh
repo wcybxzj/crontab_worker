@@ -2,9 +2,6 @@
 
 yum install -y upx
 
-#mpath=$(dirname $0)
-#cd $mpath
-
 ## build macos
 # CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "${LDFLAGS}" -o bin/deploy
 
