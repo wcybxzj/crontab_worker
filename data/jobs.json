@@ -1,5 +1,5 @@
 {
-  "IsDebug": true,
+  "IsDebug": false,
   "LogURI":"http://beat:15180/log",
   "LogService":"crontab_worker",
   "LogHost":"nqy2c1",
