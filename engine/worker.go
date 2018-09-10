@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/google/uuid"
 	"os"
-	"time"
 	"zuji/common/dlog"
 	"zuji/common/exec"
 )
@@ -48,10 +47,7 @@ func DoWork(job config.Job) error {
 	if err != nil {
 		dlog.LogColor(dlog.TextRed, "DoWork delete file", err)
 	}
-	time.Sleep(time.Second * 10)
 
 	FinishJobWorking(job.JobId)
-
 	return nil
-
 }

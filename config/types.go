@@ -9,8 +9,3 @@ type Job struct {
 	Type  string `json:"type"`
 	Exec  string `json:"exec"`
 }
-
-const (
-	JOB_FINISH = 0
-	JOB_FAIL   = 1
-)
