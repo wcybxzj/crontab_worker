@@ -19,5 +19,6 @@ version 1：
 * 执行自定义任务:
     * curl -X POST -H "Content-Type:application/json" -d "{\"job_id\": \"12345\",\"exec\": \"cd /tmp && date >> 12345.txt\"}" http://127.0.0.1:8080/ReceiveDiyJob
 
-架构图:
+### Architecture
+----
 ![](crontab_worker.jpg)
