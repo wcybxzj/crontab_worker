@@ -2,8 +2,8 @@ package engine
 
 import (
 	"crontab_worker/config"
-	"crontab_worker/global"
 	"crontab_worker/scheduler"
+	"strconv"
 )
 
 var E ConcurrentEngine
@@ -24,13 +24,18 @@ type ReadyNotifier interface {
 	WorkerReady(chan config.Job)
 }
 
-func init() {
+func init_concurrent() {
+	maxGoroutines, err := strconv.Atoi(config.Config.MaxGoroutines)
+	if err != nil {
+		panic(err)
+	}
 	E = ConcurrentEngine{
 		Scheduler:   &scheduler.QueuedScheduler{},
-		WorkerCount: global.MAX_GOROUTINES,
+		WorkerCount: maxGoroutines,
 	}
 }
 func (e *ConcurrentEngine) Run() {
+	init_concurrent()
 	e.Scheduler.Run()
 
 	for i := 0; i < e.WorkerCount; i++ {

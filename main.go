@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	engine.E.Run()
 	config.LoadConfig()
+	engine.E.Run()
 	router := gin.Default()
 	router.POST("/ReceiveConfigedJob", controllers.ReceiveConfigedJob)
 	router.POST("/ReceiveDiyJob", controllers.ReceiveDiyJob)

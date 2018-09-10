@@ -2,7 +2,6 @@ package engine
 
 import (
 	"crontab_worker/config"
-	"crontab_worker/global"
 	"fmt"
 	"github.com/google/uuid"
 	"os"
@@ -12,12 +11,12 @@ import (
 )
 
 func IsJobWorking(JobId string) bool {
-	_, ok := global.JobIdsMap.LoadOrStore(JobId, 1)
+	_, ok := config.JobIdsMap.LoadOrStore(JobId, 1)
 	return ok
 }
 
 func FinishJobWorking(JobId string) {
-	global.JobIdsMap.Delete(JobId)
+	config.JobIdsMap.Delete(JobId)
 }
 
 func DoWork(job config.Job) error {

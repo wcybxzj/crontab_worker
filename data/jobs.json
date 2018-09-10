@@ -3,6 +3,7 @@
   "LogURI":"http://beat:15180/log",
   "LogService":"crontab_worker",
   "LogHost":"nqy2c1",
+  "MaxGoroutines":"5",
   "jobs": [
     {
       "job_id":"100",

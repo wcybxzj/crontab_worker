@@ -3,16 +3,20 @@ package config
 import (
 	"encoding/json"
 	"io/ioutil"
+	"sync"
 	"zuji/common/debug"
 )
 
+var JobIdsMap sync.Map
+
 //Config config
 var Config struct {
-	IsDebug    bool
-	Jobs       []Job
-	LogURI     string
-	LogHost    string
-	LogService string
+	IsDebug       bool
+	Jobs          []Job
+	LogURI        string
+	LogHost       string
+	LogService    string
+	MaxGoroutines string
 }
 
 func init() {
