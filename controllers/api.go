@@ -14,7 +14,7 @@ func ReceiveConfigedJob(c *gin.Context) {
 		ok := engine.IsJobWorking(jobReq.JobId)
 		if ok == true {
 			dlog.LogColor(dlog.TextRed, "fail, the JobId:"+jobReq.JobId+" is working")
-			c.JSON(http.StatusOK, gin.H{"status": "ok"})
+			c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
 			return
 		}
 
@@ -23,13 +23,13 @@ func ReceiveConfigedJob(c *gin.Context) {
 			if jobReq.JobId == jobData.JobId {
 				engine.E.Scheduler.Submit(jobData)
 				dlog.LogColor(dlog.TextGreen, "ok, the JobId:"+jobReq.JobId)
-				c.JSON(http.StatusOK, gin.H{"status": "ok"})
+				c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
 				return
 			}
 		}
 
 		dlog.LogColor(dlog.TextRed, "fail, the JobId not exsits in worker config file")
-		c.JSON(http.StatusOK, gin.H{"status": "ok"})
+		c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
 		return
 	}
 }
@@ -41,13 +41,13 @@ func ReceiveDiyJob(c *gin.Context) {
 		ok := engine.IsJobWorking(jobReq.JobId)
 		if ok == true {
 			dlog.LogColor(dlog.TextRed, "fail, the JobId:"+jobReq.JobId+" is working")
-			c.JSON(http.StatusOK, gin.H{"status": "ok"})
+			c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
 			return
 		}
 
 		engine.E.Scheduler.Submit(jobReq)
 		dlog.LogColor(dlog.TextGreen, "ok, the JobId:"+jobReq.JobId)
-		c.JSON(http.StatusOK, gin.H{"status": "ok"})
+		c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
 		return
 	}
 }
@@ -60,6 +60,6 @@ func Reload(c *gin.Context) {
 	}
 
 	config.LoadConfig()
-	c.JSON(http.StatusOK, gin.H{"status": "ok"})
+	c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
 	return
 }

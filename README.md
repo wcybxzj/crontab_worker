@@ -21,6 +21,6 @@ version 1：
 
 ### govendor
 ----
-go get -u github.com/kardianos/govendor
-govendor init
-govendor add +external
+*go get -u github.com/kardianos/govendor
+    *govendor init
+    *govendor add +external
