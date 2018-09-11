@@ -14,6 +14,7 @@ var JobIdsMap sync.Map
 //Config config
 var Config struct {
 	IsDebug       bool
+	SaveLog       bool
 	Jobs          []Job
 	LogURI        string
 	LogHost       string
@@ -22,7 +23,8 @@ var Config struct {
 }
 
 func init() {
-	Config.IsDebug = false
+	Config.IsDebug = true
+	Config.SaveLog = true
 }
 
 //LoadConfig load config
@@ -40,7 +42,7 @@ func LoadConfig() error {
 	}
 
 	debug.IsDebug = Config.IsDebug
-
+	debug.SaveLog = Config.SaveLog
 	//apibeatlog.Init(Config.LogURI, Config.LogService, Config.LogHost)
 
 	return nil

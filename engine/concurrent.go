@@ -4,6 +4,7 @@ import (
 	"crontab_worker/config"
 	"crontab_worker/scheduler"
 	"strconv"
+	"zuji/common/dlog"
 )
 
 var E ConcurrentEngine
@@ -48,10 +49,13 @@ func createWorker(in chan config.Job, ready ReadyNotifier) {
 		for {
 			ready.WorkerReady(in)
 			job := <-in
+			dlog.LogColor(dlog.TextGreen, "DoWork start, JobId:"+job.JobId)
 			err := DoWork(job)
 			if err != nil {
+				dlog.LogColor(dlog.TextRed, "DoWork err:"+err.Error()+", JobId:"+job.JobId)
 				continue
 			}
+			dlog.LogColor(dlog.TextGreen, "DoWork finish JobId:"+job.JobId)
 		}
 	}()
 }

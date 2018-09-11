@@ -1,5 +1,6 @@
 {
-  "IsDebug": false,
+  "IsDebug": true,
+  "SaveLog": true,
   "LogURI":"http://beat:15180/log",
   "LogService":"crontab_worker",
   "LogHost":"nqy2c1",
@@ -9,13 +10,13 @@
       "job_id":"100",
       "name": "name100",
       "type":"shell_script",
-      "exec":"cd /tmp && date >> 100.txt"
+      "exec":"cd /tmp && date >> 100.txt && sleep 10"
     },
     {
       "job_id":"200",
       "name": "name200",
       "type":"shell_script",
-      "exec":"cd /tmp && date >> 200.txt"
+      "exec":"cd /tmp && date >> 200.txt && sleep 10"
     }
   ]
 }

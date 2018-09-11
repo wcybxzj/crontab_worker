@@ -19,30 +19,28 @@ func FinishJobWorking(JobId string) {
 }
 
 func DoWork(job config.Job) error {
-	fmt.Printf("jobid:%s exec:%s", job.JobId, job.Exec)
-
 	mypath := "/tmp"
-
 	shellCmd := "#!/bin/bash\n"
 	shellCmd += job.Exec + "\n"
 	filepath := mypath + "/" + uuid.New().String() + ".sh"
 
 	f, err := os.Create(filepath)
 	if err != nil {
-		dlog.LogColor(dlog.TextRed, "DoWork create shell file", err)
 		return err
 	}
+
+	fmt.Println(job.Exec)
 
 	f.WriteString(shellCmd)
 	f.Chmod(0755)
 	f.Close()
 
 	out := exec.RunCMDSync("/bin/bash -c " + filepath)
-	dlog.LogColor(dlog.TextGreen, "DoWork", out)
+	dlog.LogColor(dlog.TextGreen, "DoWork  RunCMDSync JobId"+job.JobId+" out:"+out)
 
 	err = os.Remove(filepath)
 	if err != nil {
-		dlog.LogColor(dlog.TextRed, "DoWork delete file", err)
+		return err
 	}
 
 	FinishJobWorking(job.JobId)
