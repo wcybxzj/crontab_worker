@@ -17,7 +17,7 @@ curl -X POST -H "Content-Type:application/json" -d "{\"job_id\": \"7\",\"exec\":
 #lts java后台配置
 {
     "url":"http://172.18.124.159:8080/ReceiveDiyJob",
-    "data":"{\"job_id\": \"1\",\"exec\": \"cd \/tmp && curl www.baidu.com >> 1.txt && sleep 15 \"}"
+    "data":"{\"job_id\": \"1\",\"exec\": \"cd \/tmp && date >> 1.txt && sleep 15 \"}"
 }
 
 

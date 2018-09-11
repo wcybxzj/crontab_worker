@@ -8,13 +8,22 @@ import (
 	"zuji/common/dlog"
 )
 
+func output(c *gin.Context) {
+
+	c.JSON(http.StatusOK, gin.H{"status": "ok",
+		"data": gin.H{
+			"addJob": gin.H{"name": "crontab_worker"},
+			"runJob": gin.H{"name": "crontab_worker"},
+		}})
+}
+
 func ReceiveConfigedJob(c *gin.Context) {
 	var jobReq config.Job
 	if c.BindJSON(&jobReq) == nil {
 		ok := engine.IsJobWorking(jobReq.JobId)
 		if ok == true {
 			dlog.LogColor(dlog.TextRed, "fail, the JobId:"+jobReq.JobId+" is working")
-			c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
+			output(c)
 			return
 		}
 
@@ -23,13 +32,13 @@ func ReceiveConfigedJob(c *gin.Context) {
 			if jobReq.JobId == jobData.JobId {
 				engine.E.Scheduler.Submit(jobData)
 				dlog.LogColor(dlog.TextGreen, "ok, the JobId:"+jobReq.JobId)
-				c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
+				output(c)
 				return
 			}
 		}
 
 		dlog.LogColor(dlog.TextRed, "fail, the JobId not exsits in worker config file")
-		c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
+		output(c)
 		return
 	}
 }
@@ -41,13 +50,13 @@ func ReceiveDiyJob(c *gin.Context) {
 		ok := engine.IsJobWorking(jobReq.JobId)
 		if ok == true {
 			dlog.LogColor(dlog.TextRed, "fail, the JobId:"+jobReq.JobId+" is working")
-			c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
+			output(c)
 			return
 		}
 
 		engine.E.Scheduler.Submit(jobReq)
 		dlog.LogColor(dlog.TextGreen, "ok, the JobId:"+jobReq.JobId)
-		c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
+		output(c)
 		return
 	}
 }
@@ -55,11 +64,12 @@ func ReceiveDiyJob(c *gin.Context) {
 //Reload api
 func Reload(c *gin.Context) {
 	if c.ClientIP() != "127.0.0.1" {
-		c.JSON(http.StatusOK, gin.H{"status": "fail, only allow 127.0.0.1"})
+		dlog.LogColor(dlog.TextGreen, "fail, only allow 127.0.0.1")
+		output(c)
 		return
 	}
 
 	config.LoadConfig()
-	c.JSON(http.StatusOK, gin.H{"status": "ok", "data": ""})
+	output(c)
 	return
 }
