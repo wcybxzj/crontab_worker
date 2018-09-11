@@ -1,2 +1,3 @@
 .idea
+crontab_worker
 go_build_crontab_worker

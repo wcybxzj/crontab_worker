@@ -21,10 +21,7 @@ func FinishJobWorking(JobId string) {
 func DoWork(job config.Job) error {
 	fmt.Printf("jobid:%s exec:%s", job.JobId, job.Exec)
 
-	mypath, err := os.Getwd()
-	if err != nil {
-		return err
-	}
+	mypath := "/tmp"
 
 	shellCmd := "#!/bin/bash\n"
 	shellCmd += job.Exec + "\n"

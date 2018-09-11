@@ -7,6 +7,5 @@ import (
 
 //Check api
 func Check(c *gin.Context) {
-
 	c.Data(http.StatusOK, "", nil)
 }

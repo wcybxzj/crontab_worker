@@ -9,3 +9,21 @@ type Job struct {
 	Type  string `json:"type"`
 	Exec  string `json:"exec"`
 }
+
+type AddJob struct {
+	Name string `json:name`
+}
+
+type RunJob struct {
+	Name string `json:name`
+}
+
+type Data struct {
+	AddJob AddJob
+	RunJob RunJob
+}
+
+type ResponseData struct {
+	Data   Data
+	Status string `json:status`
+}

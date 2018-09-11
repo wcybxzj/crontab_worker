@@ -7,6 +7,8 @@ import (
 	"zuji/common/debug"
 )
 
+const JOB_NAME = "crontab_worker"
+
 var JobIdsMap sync.Map
 
 //Config config
