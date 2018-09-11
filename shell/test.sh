@@ -23,3 +23,13 @@ curl -X POST -H "Content-Type:application/json" -d "{\"job_id\": \"7\",\"exec\":
 
 curl -X POST -H "Content-Type:application/json" -d "{\"job_id\": \"1\",\"exec\": \"cd /tmp && curl www.baidu.com >> 1.txt && sleep 15 \"}" http://172.18.124.159:8080/ReceiveDiyJob
 
+
+
+
+
+#lts java后台配置
+{
+    "url":"http://172.18.124.159:8080/ReceiveConfigedJob",
+    "data":"{\"job_id\": \"100\"}"
+}
+curl -X POST -H "Content-Type:application/json" -d "{\"job_id\": \"100\"}" http://172.18.124.159:8080/ReceiveConfigedJob
