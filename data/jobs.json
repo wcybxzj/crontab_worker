@@ -1,22 +1,70 @@
 {
-  "IsDebug": true,
-  "SaveLog": true,
+  "IsDebug": false,
+  "SaveLog": false,
   "LogURI":"http://beat:15180/log",
   "LogService":"crontab_worker",
   "LogHost":"nqy2c1",
   "MaxGoroutines":"5",
   "jobs": [
     {
-      "job_id":"100",
-      "name": "name100",
+      "job_id":"101",
+      "name": "name101",
       "type":"shell_script",
-      "exec":"cd /tmp && date >> 100.txt && sleep 10"
+      "exec":"cd /tmp && date >> 101.txt && sleep 10"
     },
     {
-      "job_id":"200",
-      "name": "name200",
+      "job_id":"102",
+      "name": "name102",
       "type":"shell_script",
-      "exec":"cd /tmp && date >> 200.txt && sleep 10"
+      "exec":"cd /tmp && date >> 102.txt && sleep 10"
+    },
+    {
+      "job_id":"103",
+      "name": "name103",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 103.txt && sleep 10"
+    },
+    {
+      "job_id":"104",
+      "name": "name104",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 104.txt && sleep 10"
+    },
+    {
+      "job_id":"105",
+      "name": "name105",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 105.txt && sleep 10"
+    },
+    {
+      "job_id":"106",
+      "name": "name106",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 106.txt && sleep 10"
+    },
+    {
+      "job_id":"107",
+      "name": "name107",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 107.txt && sleep 10"
+    },
+    {
+      "job_id":"108",
+      "name": "name108",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 108.txt && sleep 10"
+    },
+    {
+      "job_id":"109",
+      "name": "name109",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 109.txt && sleep 10"
+    },
+    {
+      "job_id":"110",
+      "name": "name110",
+      "type":"shell_script",
+      "exec":"cd /tmp && date >> 110.txt && sleep 10"
     }
   ]
 }

@@ -19,6 +19,7 @@ type Scheduler interface {
 	Submit(job config.Job)
 	WorkerChan() chan config.Job
 	Run()
+	QueueStatus() string
 }
 
 type ReadyNotifier interface {
@@ -35,6 +36,7 @@ func init_concurrent() {
 		WorkerCount: maxGoroutines,
 	}
 }
+
 func (e *ConcurrentEngine) Run() {
 	init_concurrent()
 	e.Scheduler.Run()
@@ -42,6 +44,10 @@ func (e *ConcurrentEngine) Run() {
 	for i := 0; i < e.WorkerCount; i++ {
 		createWorker(e.Scheduler.WorkerChan(), e.Scheduler)
 	}
+}
+
+func (e *ConcurrentEngine) QueueStatus() string {
+	return e.QueueStatus()
 }
 
 func createWorker(in chan config.Job, ready ReadyNotifier) {

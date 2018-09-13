@@ -2,11 +2,14 @@ package scheduler
 
 import (
 	"crontab_worker/config"
+	"fmt"
 )
 
 type QueuedScheduler struct {
 	jobChan    chan config.Job
 	workerChan chan chan config.Job
+	jobQ       []config.Job
+	workerQ    []chan config.Job
 }
 
 func (s *QueuedScheduler) WorkerChan() chan config.Job {
@@ -26,29 +29,30 @@ func (s *QueuedScheduler) Run() {
 	s.jobChan = make(chan config.Job)
 
 	go func() {
-		var jobQ []config.Job
-		var workerQ []chan config.Job
-
 		for {
 			var activeJob config.Job
 			var activeWorker chan config.Job
 
-			if len(jobQ) > 0 && len(workerQ) > 0 {
-				activeJob = jobQ[0]
-				activeWorker = workerQ[0]
+			if len(s.jobQ) > 0 && len(s.workerQ) > 0 {
+				activeJob = s.jobQ[0]
+				activeWorker = s.workerQ[0]
 			}
 
 			select {
 			case j := <-s.jobChan:
-				jobQ = append(jobQ, j)
+				s.jobQ = append(s.jobQ, j)
 
 			case w := <-s.workerChan:
-				workerQ = append(workerQ, w)
+				s.workerQ = append(s.workerQ, w)
 
 			case activeWorker <- activeJob:
-				jobQ = jobQ[1:]
-				workerQ = workerQ[1:]
+				s.jobQ = s.jobQ[1:]
+				s.workerQ = s.workerQ[1:]
 			}
 		}
 	}()
+}
+
+func (s *QueuedScheduler) QueueStatus() string {
+	return fmt.Sprintf("workerQ中空闲worker:%d, JobQ中积压待处理job:%d", len(s.workerQ), len(s.jobQ))
 }

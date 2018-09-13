@@ -43,6 +43,7 @@ func LoadConfig() error {
 
 	debug.IsDebug = Config.IsDebug
 	debug.SaveLog = Config.SaveLog
+
 	//apibeatlog.Init(Config.LogURI, Config.LogService, Config.LogHost)
 
 	return nil

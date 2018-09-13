@@ -2,7 +2,6 @@ package engine
 
 import (
 	"crontab_worker/config"
-	"fmt"
 	"github.com/google/uuid"
 	"os"
 	"zuji/common/dlog"
@@ -29,14 +28,14 @@ func DoWork(job config.Job) error {
 		return err
 	}
 
-	fmt.Println(job.Exec)
+	dlog.LogColor(dlog.TextGreen, "DoWork JobId"+job.JobId+" job.Exec:"+job.Exec)
 
 	f.WriteString(shellCmd)
 	f.Chmod(0755)
 	f.Close()
 
 	out := exec.RunCMDSync("/bin/bash -c " + filepath)
-	dlog.LogColor(dlog.TextGreen, "DoWork  RunCMDSync JobId"+job.JobId+" out:"+out)
+	dlog.LogColor(dlog.TextGreen, "DoWork  RunCMDSync JobId:"+job.JobId+" job.Exec:"+out)
 
 	err = os.Remove(filepath)
 	if err != nil {
