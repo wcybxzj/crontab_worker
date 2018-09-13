@@ -68,9 +68,6 @@ func SameJobTest() {
 
 //主要是发不同的任务,数量大于server的协程数,希望能在任务队列看能任务的挤压
 //可以看到任务的加压,然后被处理
-//服务需要开启
-//"IsDebugGoroutineNum":true,
-//"IsDebugQueueStatus":true,
 func DiffJobTest() {
 	for id := 0; id < 100; id++ {
 		httpPostDiffJob(id)
@@ -94,9 +91,17 @@ func ReloadTest() {
 	fmt.Println(out)
 }
 
+func QueueStatusTest() {
+	out, err := post.Get("http://127.0.0.1:8080/QueueStatus")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(out)
+}
 func main() {
 	//ReloadTest()
 	//SameJobTest()
-	DiffJobTest()
-	//checkTest()
+	//DiffJobTest()
+	checkTest()
+	//QueueStatusTest()
 }
