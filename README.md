@@ -36,6 +36,14 @@ version 1：
 ### lts部署方式
 ----
 
+### GOPATH
+----
+/etc/bashrc
+export GOROOT=/usr/local/go #go软件安装位置
+export PATH=$PATH:$GOROOT/bin #go自己的bin                                                                                                                                                                       
+export GOPATH=$HOME/www/go_www:/data/go_www #自己go的代码位置
+export PATH=$PATH:$GOPATH/bin #自己go的bin
+
 ### govendor
 ----
 *go get -u github.com/kardianos/govendor
