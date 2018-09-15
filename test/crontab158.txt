@@ -1,0 +1,81 @@
+==============================================================================================================================
+#158原crontab:
+
+crontab -e:
+#EverdayOperator 每天0点执行
+0 0 * * *   /bin/sh /data/webroot_test2/www/OrderServer/crontab_script/test2/crontabEverdayOperator.sh
+
+#EverweekOperator 每周一0点执行
+0 0 * * 1   /bin/sh /data/webroot_test2/www/OrderServer/crontab_script/test2/crontabEverweekOperator.sh
+
+#EverfiveteenOperator 每月1号和15号 1点执行
+0 1 1,15 * *  /data/webroot_test2/www/OrderServer/crontab_script/test2/crontabEverfiveteenOperator.sh
+
+#EvermonthOperator 每月26号0点执行
+0 0 26 * *  /data/webroot_test2/www/OrderServer/crontab_script/test2/crontabEvermonthOperator.sh
+
+#EvermonthRisk 每月13号0点执行
+0 0 13 * *  /data/webroot_test2/www/OrderServer/crontab_script/test2/crontabEvermonthRisk.sh
+
+#EvermonthCollection 每月1号0点执行
+0 0 1 * *  /data/webroot_test2/www/OrderServer/crontab_script/test2/crontabEvermonthCollection.sh
+
+#EverotherCollection 每月25号0点执行
+0 0 25 * * /bin/sh /data/webroot_test2/www/OrderServer/crontab_script/test2/crontabEverotherCollection.sh
+==============================================================================================================================
+
+每天0点执行
+EverdayOperator
+0 0 0 * * ?
+{
+    "url":"http://172.18.124.158:8080/ReceiveDiyJob",
+    "data":"{\"job_id\": \"EverdayOperator\",\"exec\": \" \/bin\/sh \/data\/webroot_test2\/www\/OrderServer\/crontab_script\/test2\/crontabEverdayOperator.sh \"}"
+}
+
+EverweekOperator(需要问问老大)
+0 0 * * 1 ?
+{
+    "url":"http://172.18.124.158:8080/ReceiveDiyJob",
+    "data":"{\"job_id\": \"EverweekOperator\",\"exec\": \" \/bin\/sh \/data\/webroot_test2\/www\/OrderServer\/crontab_script\/test2\/crontabEverweekOperator.sh \"}"
+}
+
+每月1号和15号 1点执行
+EverfiveteenOperator
+0 0 1 1,15 * ?
+{
+    "url":"http://172.18.124.158:8080/ReceiveDiyJob",
+    "data":"{\"job_id\": \"EverfiveteenOperator\",\"exec\": \" \/data\/webroot_test2\/www\/OrderServer\/crontab_script\/test2\/crontabEverfiveteenOperator.sh \"}"
+}
+
+每月26号0点执行
+EvermonthOperator
+0 0 0 26 * ?
+{
+    "url":"http://172.18.124.158:8080/ReceiveDiyJob",
+    "data":"{\"job_id\": \"EvermonthOperator\",\"exec\": \" \/data\/webroot_test2\/www\/OrderServer\/crontab_script\/test2\/crontabEvermonthOperator.sh \"}"
+}
+
+
+每月13号0点执行
+EvermonthRisk
+0 0 0 13 * ?
+{
+    "url":"http://172.18.124.158:8080/ReceiveDiyJob",
+    "data":"{\"job_id\": \"EvermonthRisk\",\"exec\": \" \/data\/webroot_test2\/www\/OrderServer\/crontab_script\/test2\/crontabEvermonthRisk.sh \"}"
+}
+
+每月1号0点执行
+EvermonthCollection
+0 0 0 1 * ?
+{
+    "url":"http://172.18.124.158:8080/ReceiveDiyJob",
+    "data":"{\"job_id\": \"EvermonthCollection\",\"exec\": \" \/data\/webroot_test2\/www\/OrderServer\/crontab_script\/test2\/crontabEvermonthCollection.sh \"}"
+}
+
+每月25号0点执行
+EverotherCollection
+0 0 0 25 * ?
+{
+    "url":"http://172.18.124.158:8080/ReceiveDiyJob",
+    "data":"{\"job_id\": \"EverotherCollection\",\"exec\": \" \/bin\/sh \/data\/webroot_test2\/www\/OrderServer\/crontab_script\/test2\/crontabEverotherCollection.sh \"}"
+}

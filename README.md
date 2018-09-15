@@ -31,8 +31,7 @@ version 1：
 
 ### 宿主crontab保证服务可用
 ----
-*/5  * * * * cd /root/www/go_www/src/crontab_worker/ && ./run.sh
-
+*/5  * * * * cd /data/go_www/src/crontab_worker/ && ./run.sh
 
 ### lts部署方式
 ----
@@ -40,5 +39,5 @@ version 1：
 ### govendor
 ----
 *go get -u github.com/kardianos/govendor
-    *govendor init
-    *govendor add +external
+    * govendor init
+    * govendor add +external

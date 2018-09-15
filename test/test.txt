@@ -27,24 +27,51 @@ screen -dmS crontabCreatepay /bin/sh -c  "cd /data/docker/zuji && docker-compose
     system("screen -dmS screen_name6 /bin/bash -c  'date >> /tmp/6.txt && sleep 10'");
     system("screen -dmS screen_name7 /bin/bash -c  'date >> /tmp/7.txt && sleep 10'");
 ==============================================================================================================================
+#测试158:
 
-#测试开发环境
+#直接测试服务
+curl -X POST -H "Content-Type:application/json" -d "{\"job_id\": \"1\",\"exec\": \"cd /tmp && curl www.baidu.com >> 1.txt && sleep 15 \"}" http://172.18.124.158:8080/ReceiveDiyJob
+
 #lts java后台配置
 {
-    "url":"http://172.18.124.159:8080/ReceiveDiyJob",
+    "url":"http://172.18.124.158:8080/ReceiveDiyJob",
     "data":"{\"job_id\": \"1\",\"exec\": \"cd \/tmp && date >> 1.txt && sleep 15 \"}"
 }
-curl -X POST -H "Content-Type:application/json" -d "{\"job_id\": \"1\",\"exec\": \"cd /tmp && curl www.baidu.com >> 1.txt && sleep 15 \"}" http://172.18.124.159:8080/ReceiveDiyJob
 
-#lts java后台配置
+#lts java测试curl
 {
-    "url":"http://172.18.124.159:8080/ReceiveConfigedJob",
-    "data":"{\"job_id\": \"100\"}"
+    "url":"http://172.18.124.158:8080/ReceiveDiyJob",
+    "data":"{\"job_id\": \"1\",\"exec\": \"cd \/tmp && curl http:\/\/www.baidu.com >> baidu.txt && sleep 15 \"}"
 }
 
-curl -X POST -H "Content-Type:application/json" -d "{\"job_id\": \"100\"}" http://172.18.124.159:8080/ReceiveConfigedJob
-{
- "host":"",
- "data":"{\"job_id\": \"100\"}",
- "url":"http://172.18.124.159:8080/ReceiveConfigedJob"
-}
+==============================================================================================================================
+#155原crontab::
+#还机逾期变更状态，每天2点执行
+0 2 * * * curl http://order.nqyong.com:1081/api/cronGivebackAgedFail
+
+#每天10点，17点執行定時扣款 每页查询100条
+0 10,17 * * *  /data/webroot/www/OrderServer/crontab_script/crontabCreatepay.sh
+
+#更改扣款中变成扣款失败,cron每隔1小时跑一次(例如1点半 2点半)
+30 * * * *    sh /data/webroot/www/OrderServer/crontab_script/crontabPaying.sh
+
+#取消订单 每天1点
+0 1 * * * curl http://order.nqyong.com:1081/api/cronCancelOrder
+
+#确认收货 每天1点
+0 1 * * * curl http://order.nqyong.com:1081/api/cronDeliveryReceive
+
+#凌晨2点消买断还机单
+0 2 * * * curl http://order.nqyong.com:1081/api/cronCancelOrderBuyout
+
+# 定时任务 每天下午两点执行 长租订单到期前一个月发送信息
+0 14 * * * curl http://order.nqyong.com:1081/api/cronOneMonthEndByLong
+
+# 定时任务 每天下午两点执行 长租订单到期前一周发送信息
+0 14 * * * curl http://order.nqyong.com:1081/api/cronOneWeekEndByLong
+
+# 定时任务 每天下午两点执行 长租订单逾期一个月发送信息
+0 14 * * * curl http://order.nqyong.com:1081/api/cronOverOneMonthEndByLong
+
+# 定时任务 每天凌晨1点执行  换货确认收货任务
+0 2 * * * curl http://order.nqyong.com:1081/api/cronBarterDelivey
