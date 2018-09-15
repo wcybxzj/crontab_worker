@@ -1,6 +1,6 @@
 #/bin/bash
 
-# */5  * * * * cd /root/www/go_www/src/crontab_worker/ && ./run.sh
+# */5  * * * * cd /data/go_www/src/crontab_worker/ && ./run.sh
 mpath=$(dirname $0)
 crontab_worker=${mpath}/crontab_worker
 
